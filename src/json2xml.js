@@ -1,8 +1,7 @@
-'use strict';
 //parse Empty Node as self closing node
-buildOptions = require('./util').buildOptions;
+const buildOptions = require('./util').buildOptions;
 
-defaultOptions = {
+const defaultOptions = {
   attributeNamePrefix: '@_',
   attrNodeName: false,
   textNodeName: '#text',
@@ -20,7 +19,7 @@ defaultOptions = {
   },
 };
 
-props = [
+const props = [
   'attributeNamePrefix',
   'attrNodeName',
   'textNodeName',
@@ -85,17 +84,17 @@ Parser.prototype.parse = function(jObj) {
 Parser.prototype.j2x = function(jObj, level) {
   let attrStr = '';
   let val = '';
-  keys = Object.keys(jObj);
-  len = keys.length;
+  const keys = Object.keys(jObj);
+  const len = keys.length;
   for (let i = 0; i < len; i++) {
-    key = keys[i];
+    const key = keys[i];
     if (typeof jObj[key] === 'undefined') {
       // supress undefined node
     } else if (jObj[key] === null) {
       val += this.indentate(level) + '<' + key + '/' + this.tagEndChar;
     } else if (typeof jObj[key] !== 'object') {
       //premitive type
-      attr = this.isAttribute(key);
+      const attr = this.isAttribute(key);
       if (attr) {
         attrStr += ' ' + attr + '="' + this.options.attrValueProcessor('' + jObj[key]) + '"';
       } else if (this.isCDATA(key)) {
@@ -127,15 +126,15 @@ Parser.prototype.j2x = function(jObj, level) {
         }
       } else {
         //nested nodes
-        arrLen = jObj[key].length;
+        const arrLen = jObj[key].length;
         for (let j = 0; j < arrLen; j++) {
-          item = jObj[key][j];
+          const item = jObj[key][j];
           if (typeof item === 'undefined') {
             // supress undefined node
           } else if (item === null) {
             val += this.indentate(level) + '<' + key + '/' + this.tagEndChar;
           } else if (typeof item === 'object') {
-            result = this.j2x(item, level + 1);
+            const result = this.j2x(item, level + 1);
             val += this.buildObjNode(result.val, key, result.attrStr, level);
           } else {
             val += this.buildTextNode(item, key, '', level);
@@ -145,13 +144,13 @@ Parser.prototype.j2x = function(jObj, level) {
     } else {
       //nested node
       if (this.options.attrNodeName && key === this.options.attrNodeName) {
-        Ks = Object.keys(jObj[key]);
-        L = Ks.length;
+        const Ks = Object.keys(jObj[key]);
+        const L = Ks.length;
         for (let j = 0; j < L; j++) {
           attrStr += ' ' + Ks[j] + '="' + this.options.attrValueProcessor('' + jObj[key][Ks[j]]) + '"';
         }
       } else {
-        result = this.j2x(jObj[key], level + 1);
+        const result = this.j2x(jObj[key], level + 1);
         val += this.buildObjNode(result.val, key, result.attrStr, level);
       }
     }
