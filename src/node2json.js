@@ -20,7 +20,7 @@ const convertToJson = function(node, options) {
   util.merge(jObj, node.attrsMap);
 
   const keys = Object.keys(node.child);
-  for (let index = 0; index < keys.length; index++) {
+  for (index = 0; index < keys.length; index++) {
     var tagname = keys[index];
     if (node.child[tagname] && node.child[tagname].length > 1) {
       jObj[tagname] = [];

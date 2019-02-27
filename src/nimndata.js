@@ -43,7 +43,7 @@ const _e = function(node, e_schema, options) {
   } else {
     const hasValidData = hasData(node);
     if (hasValidData === true) {
-      let str = '';
+      str = '';
       if (Array.isArray(e_schema)) {
         //attributes can't be repeated. hence check in children tags only
         str += chars.arrStart;
@@ -52,12 +52,12 @@ const _e = function(node, e_schema, options) {
         const arr_len = node.length;
 
         if (typeof itemSchema === 'string') {
-          for (let arr_i = 0; arr_i < arr_len; arr_i++) {
+          for (arr_i = 0; arr_i < arr_len; arr_i++) {
             const r = getValue(node[arr_i].val, itemSchema);
             str = processValue(str, r);
           }
         } else {
-          for (let arr_i = 0; arr_i < arr_len; arr_i++) {
+          for (arr_i = 0; arr_i < arr_len; arr_i++) {
             const r = _e(node[arr_i], itemSchema, options);
             str = processValue(str, r);
           }
@@ -70,12 +70,11 @@ const _e = function(node, e_schema, options) {
         if (Array.isArray(node)) {
           node = node[0];
         }
-        for (let i in keys) {
+        for (i in keys) {
           const key = keys[i];
           //a property defined in schema can be present either in attrsMap or children tags
           //options.textNodeName will not present in both maps, take it's value from val
           //options.attrNodeName will be present in attrsMap
-          let r;
           if (!options.ignoreAttributes && node.attrsMap && node.attrsMap[key]) {
             r = _e(node.attrsMap[key], e_schema[key], options);
           } else if (key === options.textNodeName) {

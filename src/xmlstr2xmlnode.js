@@ -4,7 +4,7 @@ const util = require('./util');
 const buildOptions = require('./util').buildOptions;
 const xmlNode = require('./xmlNode');
 const TagType = {OPENING: 1, CLOSING: 2, SELF: 3, CDATA: 4};
-let regx =
+regx =
   '<((!\\[CDATA\\[([\\s\\S]*?)(]]>))|(([\\w:\\-._]*:)?([\\w:\\-._]+))([^>]*)>|((\\/)(([\\w:\\-._]*:)?([\\w:\\-._]+))\\s*>))([^<]*)';
 
 //const tagsRegx = new RegExp("<(\\/?[\\w:\\-\._]+)([^>]*)>(\\s*"+cdataRegx+")*([^<]+)?","g");
@@ -70,12 +70,12 @@ const getTraversalObj = function(xmlData, options) {
   xmlData = xmlData.replace(/<!--[\s\S]*?-->/g, ''); //Remove  comments
 
   const xmlObj = new xmlNode('!xml');
-  let currentNode = xmlObj;
+  currentNode = xmlObj;
 
   regx = regx.replace(/\[\\w/g, '[' + options.localeRange + '\\w');
   const tagsRegx = new RegExp(regx, 'g');
-  let tag = tagsRegx.exec(xmlData);
-  let nextTag = tagsRegx.exec(xmlData);
+  tag = tagsRegx.exec(xmlData);
+  nextTag = tagsRegx.exec(xmlData);
   while (tag) {
     const tagType = checkForTagType(tag);
 
@@ -171,7 +171,6 @@ function resolveNameSpace(tagname, options) {
 
 function parseValue(val, shouldParse, parseTrueNumberOnly) {
   if (shouldParse && typeof val === 'string') {
-    let parsed;
     if (val.trim() === '' || isNaN(val)) {
       parsed = val === 'true' ? true : val === 'false' ? false : val;
     } else {
@@ -209,7 +208,7 @@ function buildAttributesMap(attrStr, options) {
     const matches = util.getAllMatches(attrStr, attrsRegx);
     const len = matches.length; //don't make it inline
     const attrs = {};
-    for (let i = 0; i < len; i++) {
+    for (i = 0; i < len; i++) {
       const attrName = resolveNameSpace(matches[i][1], options);
       if (attrName.length) {
         if (matches[i][4] !== undefined) {

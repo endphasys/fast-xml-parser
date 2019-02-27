@@ -2,11 +2,11 @@
 
 const getAllMatches = function(string, regex) {
   const matches = [];
-  let match = regex.exec(string);
+  match = regex.exec(string);
   while (match) {
     const allmatches = [];
     const len = match.length;
-    for (let index = 0; index < len; index++) {
+    for (index = 0; index < len; index++) {
       allmatches.push(match[index]);
     }
     matches.push(allmatches);
@@ -41,7 +41,7 @@ exports.merge = function(target, a) {
   if (a) {
     const keys = Object.keys(a); // will return an array of own properties
     const len = keys.length; //don't make it inline
-    for (let i = 0; i < len; i++) {
+    for (i = 0; i < len; i++) {
       target[keys[i]] = a[keys[i]];
     }
   }
@@ -67,7 +67,7 @@ exports.buildOptions = function(options, defaultOptions, props) {
     return defaultOptions; //if there are not options
   }
 
-  for (let i = 0; i < props.length; i++) {
+  for (i = 0; i < props.length; i++) {
     if (options[props[i]] !== undefined) {
       newOptions[props[i]] = options[props[i]];
     } else {

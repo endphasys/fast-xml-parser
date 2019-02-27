@@ -13,12 +13,12 @@ const convertToJsonString = function(node, options) {
 };
 
 const _cToJsonStr = function(node, options, level) {
-  let jObj = '{';
+  jObj = '{';
 
   //traver through all the children
   const keys = Object.keys(node.child);
 
-  for (let index = 0; index < keys.length; index++) {
+  for (index = 0; index < keys.length; index++) {
     var tagname = keys[index];
     if (node.child[tagname] && node.child[tagname].length > 1) {
       jObj += '"' + tagname + '" : [ ';

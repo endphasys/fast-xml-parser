@@ -18,14 +18,14 @@ exports.validate = function(xmlData, options) {
   //xmlData = xmlData.replace(/(<!DOCTYPE[\s\w\"\.\/\-\:]+(\[.*\])*\s*>)/g,"");//Remove DOCTYPE
 
   const tags = [];
-  let tagFound = false;
+  tagFound = false;
   if (xmlData[0] === '\ufeff') {
     // check for byte order mark (BOM)
     xmlData = xmlData.substr(1);
   }
   const regxAttrName = new RegExp('^[_w][\\w\\-.:]*$'.replace('_w', '_' + options.localeRange));
   const regxTagName = new RegExp('^([w]|_)[\\w.\\-_:]*'.replace('([w', '([' + options.localeRange));
-  for (let i = 0; i < xmlData.length; i++) {
+  for (i = 0; i < xmlData.length; i++) {
     if (xmlData[i] === '<') {
       //starting of tag
       //read until you reach to '>' avoiding any '>' in attribute value
@@ -40,14 +40,14 @@ exports.validate = function(xmlData, options) {
         i = readCommentAndCDATA(xmlData, i);
         continue;
       } else {
-        let closingTag = false;
+        closingTag = false;
         if (xmlData[i] === '/') {
           //closing tag
           closingTag = true;
           i++;
         }
         //read tagname
-        let tagName = '';
+        tagName = '';
         for (; i < xmlData.length && xmlData[i] !== '>' && xmlData[i] !== ' ' && xmlData[i] !== '\t'; i++) {
           tagName += xmlData[i];
         }
@@ -67,7 +67,7 @@ exports.validate = function(xmlData, options) {
         if (result === false) {
           return {err: {code: 'InvalidAttr', msg: 'Attributes for ' + tagName + ' have open quote'}};
         }
-        let attrStr = result.value;
+        attrStr = result.value;
         i = result.index;
 
         if (attrStr[attrStr.length - 1] === '/') {
@@ -183,7 +183,7 @@ function readCommentAndCDATA(xmlData, i) {
     xmlData[i + 6] === 'P' &&
     xmlData[i + 7] === 'E'
   ) {
-    let angleBracketsCount = 1;
+    angleBracketsCount = 1;
     for (i += 8; i < xmlData.length; i++) {
       if (xmlData[i] === '<') {
         angleBracketsCount++;
@@ -224,8 +224,8 @@ var singleQuote = "'";
  * @param {number} i
  */
 function readAttributeStr(xmlData, i) {
-  let attrStr = '';
-  let startChar = '';
+  attrStr = '';
+  startChar = '';
   for (; i < xmlData.length; i++) {
     if (xmlData[i] === doubleQuote || xmlData[i] === singleQuote) {
       if (startChar === '') {
@@ -265,7 +265,7 @@ function validateAttributeString(attrStr, options, regxAttrName) {
   const matches = util.getAllMatches(attrStr, validAttrStrRegxp);
   const attrNames = {};
 
-  for (let i = 0; i < matches.length; i++) {
+  for (i = 0; i < matches.length; i++) {
     //console.log(matches[i]);
 
     if (matches[i][1].length === 0) {

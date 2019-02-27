@@ -36,7 +36,7 @@ http.get('http://nodejs.org', function(response) {
 
 */
 
-let stream = require('stream');
+stream = require('stream');
 const util = require('util');
 
 if (!stream.Transform) {
