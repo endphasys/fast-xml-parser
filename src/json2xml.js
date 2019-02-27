@@ -82,11 +82,11 @@ Parser.prototype.parse = function(jObj) {
 };
 
 Parser.prototype.j2x = function(jObj, level) {
-  let attrStr = '';
-  let val = '';
+  attrStr = '';
+  val = '';
   const keys = Object.keys(jObj);
   const len = keys.length;
-  for (let i = 0; i < len; i++) {
+  for (i = 0; i < len; i++) {
     const key = keys[i];
     if (typeof jObj[key] === 'undefined') {
       // supress undefined node
@@ -127,7 +127,7 @@ Parser.prototype.j2x = function(jObj, level) {
       } else {
         //nested nodes
         const arrLen = jObj[key].length;
-        for (let j = 0; j < arrLen; j++) {
+        for (j = 0; j < arrLen; j++) {
           const item = jObj[key][j];
           if (typeof item === 'undefined') {
             // supress undefined node
@@ -146,7 +146,7 @@ Parser.prototype.j2x = function(jObj, level) {
       if (this.options.attrNodeName && key === this.options.attrNodeName) {
         const Ks = Object.keys(jObj[key]);
         const L = Ks.length;
-        for (let j = 0; j < L; j++) {
+        for (j = 0; j < L; j++) {
           attrStr += ' ' + Ks[j] + '="' + this.options.attrValueProcessor('' + jObj[key][Ks[j]]) + '"';
         }
       } else {
@@ -172,7 +172,7 @@ function replaceCDATAarr(str, cdata) {
   if (this.options.cdataPositionChar === '' || str === '') {
     return str + '<![CDATA[' + cdata.join(']]><![CDATA[') + ']]' + this.tagEndChar;
   } else {
-    for (let v in cdata) {
+    for (v in cdata) {
       str = str.replace(this.options.cdataPositionChar, '<![CDATA[' + cdata[v] + ']]>');
     }
     return str + this.newLine;
